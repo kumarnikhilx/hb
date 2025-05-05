@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Archivo:ital,wght@0,100..900;1,100..900&family=Bilbo+Swash+Caps&family=Inter:opsz,wght@14..32,500&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap');
+
+:root {
+    --button-bg: rgb(20 4 4 / 59%);
+    --button-text: #fff;
+    --button-border: #fff;
+    --border-radius: 8px;
+    --left-border: 1.3px solid var(--button-border);
+    --right-border: 1.3px solid var(--button-border);
+    --main-font: 'Archivo', sans-serif;
+    --decorative-font: 'Dancing Script', sans-serif;
+}
+
+body {
+    font-family: "Archivo", sans-serif;
+    height: 100vh;
+}
+
+
+@keyframes backgroundAnimation {
+    0% {background-position: 0% 0%;}
+    25% {background-position: 100% 100%;} 
+    50% {background-position: 0% 100%;} 
+    75% {background-position: 50% 50%;} 
+    100% {background-position: 0% 0%;}
+}
+
+#backgroundBlur {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, #ffe1e1, #ff217de0), url(./r.jpg);
+    transition: all 1s ease;
+}
+
+#wallpaper {
+    width: 100%;
+    height: 100%;
+    transform: scale(2);
+    transition: all 1.3s ease;
+}
+
+@keyframes jumpAnimation {
+    0%  {transform: scale(1.1);} 
+    50% {transform: scale(1.2);} 
+    100% {transform: scale(1.1);}
+}
+
+@keyframes scaleIn {
+    from {transform:scale(.1);} 
+    to {transform:scale(1);}
+}
+
+@keyframes scaleOut {
+    from {transform:scale(1);} 
+    to {transform:scale(1.1);}
+}
+
+@keyframes opacityPulse {
+    0% {transform: scale(1);} 
+    50% {transform: scale(.75);} 
+    100% {transform: scale(1);}
+}
+
+@keyframes rotate {
+    from {transform: rotate(0deg);} 
+    to {transform: rotate(360deg);}
+}
+
+#messageBox {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    margin-top: 100px;
+    background: rgb(0 0 0 / 73%);
+    border-radius: 18px 0 18px 0;
+    box-shadow: rgba(255,255,255, 0.3) 0px 7px 29px 0px;
+    transform: scale(.1);
+    transition: all 1s ease;
+    margin-top: 120px;
+    margin-left: 0;
+    margin-right: 0;
+    color: var(--button-text);
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, .8);
+}
+
+#messageBox {
+    width: 400px;
+    text-align: center;
+    line-height: 1.3em;
+    padding: 20px 25px 20px 25px;
+}
+
+#messageBox::before {
+    content: attr(data-text);
+    opacity: .7;
+    font-family: sans-serif;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    min-width: 15px;
+    font-size: 16px;
+    text-align: center;
+}
+
+#messageBox::after {
+    content: "";
+    position: absolute;
+    border: 1px solid #fff;
+    border-radius: 18px 0 18px 0;
+    top: -8px;
+    bottom: -8px;
+    left: -8px;
+    right: -8px;
+}
+
+#messageBox p {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4em;
+    transition: all .5s ease;
+}
+
+#messageBox > #mainMessage, 
+#messageBox > .specialStyle {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+#messageBox > #message4 {
+    margin-top: 25px;
+}
+
+#messageBox > .specialStyle {
+    line-height: 1em;
+}
+
+#messageBox p:not(#continuePrompt, #mainMessage, .specialStyle) {
+    display: none;
+}
+
+#messageBox > #continuePrompt {
+    text-align: right;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 0;
+    margin-top: 24px;
+    color: white;
+    opacity: 0;
+    transition: all .2s ease;
+}
+
+#actionButton {
+    position: relative;
+    opacity: 0;
+    margin: 0;
+    display: flex;
+    align-items: left;
+    list-style: none;
+    transform: scale(.1);
+    transition: all 1s ease;
+}
+
+#actionButton a {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    margin: 12px 0 12px 0;
+    transition: all .2s ease;
+    padding: 10px;
+    outline: 0;
+    border: 1px solid #fff;
+    border-radius: 18px;
+    line-height: 15px;
+    background: rgba(0,0,0,.5);
+    color: var(--button-text);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    box-shadow: rgba(255,255,255, 0.3) 0px 7px 29px 0px;
+    z-index: 1;
+} 
+
+#mainContent {
+    animation-name: none;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    position: relative;
+    opacity: 0;
+    margin-top: 50px;
+    width: 100%;
+    height: 100vh;
+    transition: all .7s ease;
+}
+
+#mainContent > * {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-top: 19px;
+}
+
+.stickerCollection > img {
+    display: none;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(255,255,255, 0.3);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+    margin: 20px 0;
+}
+
+#sticker1 {
+    opacity: .1;
+    transition: all 1.2s ease;
+    transform: scale(.1);
+}
+
+.greeting {
+    font-size: 18px !important;
+    position: relative;
+    margin: 22px 0;
+} 
+
+.greeting.specialStyle {
+    font-family: var(--decorative-font);
+    font-size: 24px !important;
+    margin-top: 20px !important;
+}
+
+#giftContainer img {
+    display: inline-flex;
+    background: none;
+    width: 317px;
+    height: 280px;
+    margin-bottom: 26px;
+    transition: all .3s ease;
+}
+
+#instructionText, .greeting {
+    text-shadow: 1px 1px 2px rgb(10 3 3 / 67%);
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    font-weight: 700;
+    margin-left: 36px;
+    color: #240606;
+}
+
+#giftContainer img:hover {
+    transform: scale(.9);
+}
+
+#iconCollection {
+    position: absolute;
+    opacity: 0;
+    display: flex;
+    transform: scale(.1);
+    transition: all 1s ease;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+#iconCollection > li {
+    margin: 8px;
+    padding: 0;
+    list-style-type: none;
+}
+
+#iconCollection li {
+    opacity: .8;
+    display: flex;
+    font-size: 30px;
+}
+
+#iconCollection li:hover {
+    opacity: .5;
+    transform: scale(1.15);
+    transition: all .3s ease;
+}
+
+.swal2-modal > * {
+    font-size: 16px;
+}
+
+.swal2-title {
+    line-height: 1.3em;
+    font-size: 17px;
+    text-align: center;
+    padding: 15px 30px 0 30px;
+}
+
+.swal2-timer-progress-bar-container > * {
+    opacity: .7;
+    background: #00B6FF;
+    margin: 0 2px;
+}
+
+.swal2-modal {
+    background: #ffffff;
+    box-shadow: 0 4px 30px rgb(74 74 74 / 57%);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    max-width: 330px;
+    top: -60px;
+}
+
+.swal2-styled.swal2-confirm, 
+.swal2-styled.swal2-cancel {
+    position: relative;
+    background-color: #4839eb;
+    color: #fff;
+    border-radius: 18px;
+    z-index: 1;
+    transition: all 0.2s;
+}
+
+.hidden, 
+#rejectionMessage > *, 
+#kado2, 
+#kado3 {
+    display: none !important;
+}
+
+.swal2-container.swal2-backdrop-show, 
+.swal2-container.swal2-noanimation {
+    background: linear-gradient(to bottom, #ffe1e1, #ff217de0), url(./r.jpg);
+    height: 100vh;
+}
+
+.stickerCollection img {
+    transform: scale(2) !important;
+}
+
+#instructionText {
+    margin-top: 3px !important;
+    backdrop-filter: blur(8px);
+}

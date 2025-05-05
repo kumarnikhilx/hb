@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5" name="viewport" />
+  <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+
+  <title>Happy Birthday</title>
+  <link rel="icon" type="image/x-icon" href="https://www.palingit.com/favicon.ico" />
+  <meta name="description" content="A special birthday greeting" />
+</head>
+
+<body style="background: linear-gradient(to bottom, #ffe1e1, #ff217de0), url(./r.jpg); height: 100vh;">
+  <audio src="./y2mate (mp3cut.net).mp3" id="birthdayAudio" class="hidden"></audio>
+
+  <div id="backgroundBlur">
+    <img src="" id="wallpaper" />
+  </div>
+
+  <div id="mainContent">
+    <div id="giftContainer">
+      <img src="./Valentine-Surprise.png" alt="Open Gift Button" />
+    </div>
+    <p id="instructionText">
+      <span style="font-style: italic; color: rgb(0,0,0); margin-top: 3px !important;">Open the gift</span>
+    </p>
+
+    <div class="stickerCollection" style="margin-top: 95px;">
+      <img src="https://media.tenor.com/4Ijycn6xFzUAAAAj/mochi-blue-roses.gif" id="sticker1" />
+      <img src="https://feeldreams.github.io/bunga.gif" id="sticker2" />
+      <img src="https://feeldreams.github.io/pandacoklat.gif" id="sticker3" />
+      <img src="https://media.tenor.com/snFoLI-S9CQAAAAj/milk-and-mocha.gif" id="sticker4" />
+      <img src="https://feeldreams.github.io/emawh.gif" id="sticker5" />
+      <img src="https://feeldreams.github.io/pandacoklat.gif" id="sticker6" />
+    </div>
+
+    <p id="greetingText" class="greeting"></p>
+
+    <div>
+      <blockquote id="messageBox" data-text="💞">
+        <p id="mainMessage">
+          Happy Birthday, gorgeous! Today is all about celebrating you.
+        </p>
+
+        <p id="message1">Tap here for your birthday surprise! 🎉</p>
+        <div id="iconCollection">
+          <li id="icon1">🎂</li>
+          <li id="icon2">🎁</li>
+          <li id="icon3">🥳</li>
+          <li id="icon4">💖</li>
+        </div>
+
+        <p id="message2">You shine brighter every year! ✨</p>
+        <p id="message3">Do you know what makes today extra special?</p>
+        <p id="message4" class="specialStyle">It's your birthday!</p>
+        <p id="message5" class="specialStyle">
+          Today, I wish you a year filled with laughter, love, and unforgettable moments.
+        </p>
+        <p id="message6" class="specialStyle">
+          Remember, you deserve every happiness in the world. Celebrate big and enjoy every moment!
+        </p>
+
+        <p id="continuePrompt">Tap to continue the celebration!</p>
+      </blockquote>
+    </div>
+
+    <div id="actionButton"><a id="nextButton">&#128140; Next</a></div>
+
+    <div id="rejectionMessage">
+      <img id="rejectionSticker" src="https://feeldreams.github.io/weee.gif" />
+      <p id="rejectionText">
+        Oops! You can't skip this birthday magic.
+      </p>
+    </div>
+  </div>
+  
+
+  <script>
+    const body = document.querySelector("body");
+    const sweetAlert = Swal.mixin({
+      timer: 2300,
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      timerProgressBar: true,
+      imageHeight: 90,
+    });
+    audio = new Audio("" + birthdayAudio.src);
+    currentSticker = 0;
+    functionState = 0;
+    initialFunctionState = 0;
+    defaultSticker = sticker1.src;
+    mainContent.style = "opacity:1;margin-top:16vh";
+    const sweetAlertConfirm = Swal.mixin({
+      allowOutsideClick: false,
+      cancelButtonColor: "#FF0040",
+      imageHeight: 80,
+    });
+
+    document.getElementById("giftContainer").onclick = function () {
+      if (initialFunctionState == 0) {
+        audio.play();
+        initialFunctionState = 1;
+        giftContainer.style = "transition:all .8s ease;transform:scale(10);opacity:0";
+        wallpaper.style = "transform: scale(1.5);";
+        instructionText.style = "display:none";
+        setTimeout(initializeContent, 300);
+        setTimeout(getUserName, 500);
+      }
+    };
+
+    async function getUserName() {
+      var { value: name } = await sweetAlertConfirm.fire({
+        title: "What's your beautiful name?",
+        input: "text",
+      });
+      if (name && name.length < 11) {
+        window.name = name;
+        greetingMessage = "Happy Birthday, " + name + "!";
+        startGreeting();
+      } else {
+        await Swal.fire({
+          title: "Your name is lovely, but it seems a bit long.",
+          text: "Please enter a shorter name.",
+          icon: "warning",
+        });
+        getUserName();
+      }
+    }
+
+    var question = "How about we celebrate your birthday in style?";
+    var questionPrompt = "Your choice is:";
+    var positiveOption = "Absolutely, let's celebrate! 🎉";
+    var negativeOption = "Maybe another time";
+
+    async function askQuestion() {
+      var { isConfirmed: answer } = await sweetAlertConfirm.fire({
+        title: name + ", " + question,
+        text: "" + questionPrompt,
+        imageUrl: "" + sticker6.src,
+        showCancelButton: true,
+        confirmButtonText: "" + positiveOption,
+        cancelButtonText: "" + negativeOption,
+      });
+      if (answer) {
+        whatsappMessage = "Yes " + name + ", let the birthday magic begin!";
+        proceedToNext();
+      } else {
+        whatsappMessage = name + ", don't miss out on the birthday fun!";
+        await sweetAlert.fire({
+          title: "" + rejectionText.innerHTML,
+          timer: 2000,
+          imageUrl: "" + rejectionSticker.src,
+        });
+        proceedToNext();
+      }
+    }
+  </script>
+  <script src="a.js"></script>
+</body>
+</html>
